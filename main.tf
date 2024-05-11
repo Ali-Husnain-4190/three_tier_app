@@ -19,7 +19,11 @@ module "rds" {
   subnet_ids        = local.subnet_ids
   availability_zone = var.availability_zone
 }
-
+module "web" {
+  source     = "./modules/web"
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = local.private_app_subnet_id
+}
 module "app" {
   source     = "./modules/app"
   vpc_id     = module.vpc.vpc_id
